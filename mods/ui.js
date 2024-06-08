@@ -86,6 +86,7 @@ function execute_once_dom_loaded() {
   uiContainer.innerHTML = `
 <h1>TizenTube Configuration</h1>
 <label for="__adblock"><input type="checkbox" id="__adblock" /> Enable AdBlocking</label>
+<label for="__removeShorts"><input type="checkbox" id="__removeShorts" /> Remove Shorts</label>
 <label for="__fixedUI"><input type="checkbox" id="__fixedUI" /> Enable Fixed UI</label>
 <label for="__sponsorblock"><input type="checkbox" id="__sponsorblock" /> Enable SponsorBlock</label>
 <blockquote>
@@ -112,6 +113,10 @@ function execute_once_dom_loaded() {
     configWrite('enableAdBlock', evt.target.checked);
   });
 
+  uiContainer.querySelector('#__removeShorts').checked = configRead('removeShorts');
+  uiContainer.querySelector('#__removeShorts').addEventListener('change', (evt) => {
+    configWrite('removeShorts', evt.target.checked);
+  });
   uiContainer.querySelector('#__sponsorblock').checked =
     configRead('enableSponsorBlock');
   uiContainer
@@ -209,7 +214,7 @@ function execute_once_dom_loaded() {
       evt.keyCode,
       evt.defaultPrevented
     );
-    if (evt.keyCode == 404 || evt.keyCode == 172) {
+    if (evt.keyCode == 404 || evt.keyCode == 172 || evt.key == "m") {
       console.info('Taking over!');
       evt.preventDefault();
       evt.stopPropagation();
@@ -237,7 +242,7 @@ function execute_once_dom_loaded() {
   document.addEventListener('keyup', eventHandler, true);
 
   setTimeout(() => {
-    showNotification('Press [GREEN] to open TizenTube configuration screen\nPress [BLUE] to open Video Speed configuration screen');
+    showNotification('Press [GREEN | M] to open TizenTube configuration screen\nPress [BLUE | S] to open Video Speed configuration screen');
   }, 2000);
 
   // Fix UI issues, again. Love, Googol.

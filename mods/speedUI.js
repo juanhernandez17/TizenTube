@@ -42,7 +42,7 @@ function execute_once_dom_loaded_speed() {
         'keydown',
         (evt) => {
             console.info('speedUIContainer key event:', evt.type, evt.keyCode);
-            if (evt.keyCode !== 404 && evt.keyCode !== 172) {
+            if (evt.keyCode !== 404 && evt.keyCode !== 172 && evt.key !== "m" ) {
                 if (evt.keyCode in ARROW_KEY_CODE) {
                     navigate(ARROW_KEY_CODE[evt.keyCode]);
                 } else if (evt.keyCode === 13 || evt.keyCode === 32) {
@@ -72,9 +72,10 @@ function execute_once_dom_loaded_speed() {
 
     speedUIContainer.innerHTML = `
     <h1>TizenTube Video Speed Settings</h1>
+
     `;
 
-    const maxSpeed = 4;
+    const maxSpeed = 2.5;
     const increment = 0.25;
 
     for (let speed = increment; speed <= maxSpeed; speed += increment) {
@@ -96,7 +97,7 @@ function execute_once_dom_loaded_speed() {
     document.querySelector('body').appendChild(speedUIContainer);
 
     const eventHandler = (evt) => {
-        if (evt.keyCode == 406 || evt.keyCode == 191) {
+        if (evt.keyCode == 406 || evt.keyCode == 191 || evt.key == "s" ) {
             console.info('Taking over!');
             evt.preventDefault();
             evt.stopPropagation();
