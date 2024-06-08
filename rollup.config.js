@@ -3,8 +3,8 @@ import terser from '@rollup/plugin-terser';
 import getBabelOutputPlugin from '@rollup/plugin-babel';
 
 export default {
-    input: "userScript.js",
-    output: { file: "../dist/userScript.js", format: "iife" },
+    input: "mods/userScript.js",
+    output: { file: "dist/userScript.js", format: "iife" },
     plugins: [
         string({
             include: "**/*.css",

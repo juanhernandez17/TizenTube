@@ -7,9 +7,19 @@
   "websiteURL": "https://youtube.com/tv",
   "main": "dist/userScript.js",
   "author": "Reis Can",
-  "keys": ["MediaPlayPause"],
+  "keys": [
+    "MediaPlayPause"
+  ],
   "repository": {
     "url": "https://github.com/reisxd/TizenTube"
   },
-  "license": "GPL-3.0-only"
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "@babel/preset-env": "^7.24.6",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-eslint": "^9.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup-plugin-string": "^3.0.0",
+    "whatwg-fetch": "^3.6.20"
+  }
 }
