@@ -10,6 +10,7 @@ const interval = setInterval(() => {
   if (videoElement) {
     execute_once_dom_loaded();
     clearInterval(interval);
+	hide_Mouse()
   }
 }, 250);
 
@@ -87,6 +88,7 @@ function execute_once_dom_loaded() {
 <h1>TizenTube Configuration</h1>
 <label for="__adblock"><input type="checkbox" id="__adblock" /> Enable AdBlocking</label>
 <label for="__removeShorts"><input type="checkbox" id="__removeShorts" /> Remove Shorts</label>
+<label for="__hideMouse"><input type="checkbox" id="__hideMouse" /> Hide Mouse</label>
 <label for="__fixedUI"><input type="checkbox" id="__fixedUI" /> Enable Fixed UI</label>
 <label for="__sponsorblock"><input type="checkbox" id="__sponsorblock" /> Enable SponsorBlock</label>
 <blockquote>
@@ -117,6 +119,13 @@ function execute_once_dom_loaded() {
   uiContainer.querySelector('#__removeShorts').addEventListener('change', (evt) => {
     configWrite('removeShorts', evt.target.checked);
   });
+
+  uiContainer.querySelector('#__hideMouse').checked = configRead('hideMouse');
+  uiContainer.querySelector('#__hideMouse').addEventListener('change', (evt) => {
+    configWrite('hideMouse', evt.target.checked);
+	hide_Mouse()
+  });
+
   uiContainer.querySelector('#__sponsorblock').checked =
     configRead('enableSponsorBlock');
   uiContainer
@@ -258,7 +267,37 @@ function execute_once_dom_loaded() {
       observer.observe(document.getElementsByTagName('body')[0], { attributes: true, childList: false, subtree: false });
     } catch (e) { }
   }
+  
 }
+
+// https://stackoverflow.com/questions/3354239/hiding-the-mouse-cursor-when-idle-using-javascript
+function hide_Mouse() {
+	var mouseTimer = null
+
+	function disappearCursor() {
+		if (configRead("hideMouse")) {
+			mouseTimer = null;
+			document.body.style.cursor = "none";
+		}
+	}
+
+	document.onmousemove = function() {
+		if (mouseTimer) {
+			window.clearTimeout(mouseTimer);
+		}
+		if (document.body.style.cursor == "none") {
+			document.body.style.cursor = "";
+		}
+		mouseTimer = window.setTimeout(disappearCursor, 3000);
+	};
+
+	if (configRead("hideMouse")) {
+		mouseTimer = window.setTimeout(disappearCursor, 3000);
+	} else {
+		document.body.style.cursor = "";
+	}
+}
+
 
 export function showNotification(text, time = 3000) {
   if (!document.querySelector('.ytaf-notification-container')) {
