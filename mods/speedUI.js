@@ -16,7 +16,7 @@ function execute_once_dom_loaded_speed() {
 
     const eventHandler = (evt) => {
         const currentSpeed = configRead('videoSpeed');
-        if (evt.keyCode == 406 || evt.keyCode == 191) {
+        if (evt.keyCode == 406 || evt.keyCode == 191  /*|| evt.keyCode == 191*/ || evt.key == "\\" ) {
             evt.preventDefault();
             evt.stopPropagation();
             if (evt.type === 'keydown') {
